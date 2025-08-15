@@ -1,68 +1,196 @@
-/* Light theme */
-:root {
-  --background: #ffffff;
-  --text: #333333;
-  --primary: #2a9d8f;
-  --secondary: #264653;
-  --accent: #e9c46a;
-  --menu-bg: rgba(255, 255, 255, 0.95);
-  --button-text: #ffffff;
-  --card-bg: #f8f9fa;
+  /* ===== Light theme ===== */
+  :root {
+    --background: #ffffff;
+    --text: #333333;
+    --primary: #0077b6;              /* Deeper, elegant blue */
+    --secondary: #005f86;            /* Muted darker blue for contrast */
+    --accent: #0096c7;               /* Slightly vibrant but controlled */
+    --menu-bg: rgba(255, 255, 255, 0.95);
+    --button-text: #ffffff;
+    --card-bg: #f8f9fa;
+
+    /* Icons */
+    --icon-color: #0096c7;           /* Deep aqua-blue for icons */
+    --icon-bg: #e0f7ff;              /* Soft watery blue background */
+    --icon-active: #0077b6;          /* Deeper blue on hover */
+
+    --text-color: #2d3748;
+  }
+
+  /* ===== Dark theme ===== */
+  [data-theme="dark"] {
+    --background: #121212;
+    --text: #f5f5f5;
+    --primary: #00d4ff;              /* Bright neon cyan */
+    --secondary: #007c91;
+    --accent: #33ebff;               /* Hydrating neon highlight */
+    --menu-bg: rgba(18, 18, 18, 0.95);
+    --button-text: #ffffff;
+    --card-bg: #1e1e1e;
+
+    /* Icons */
+    --icon-color: #00d4ff;
+    --icon-bg: #0f4c75;
+    --icon-active: #33ebff;
+
+    --text-color: #f7fafc;
+  }
+
+  /* ===== Apply theme variables ===== */
+  body {
+    background-color: var(--background);
+    color: var(--text);
+  }
+
+  .hero, .card, .service-card {
+    background: var(--card-bg);
+  }
+
+  .section-title {
+    color: var(--primary);
+    display: block;       /* ensures it's treated as a block element */
+    margin-left: auto;    /* auto margin centers block horizontally */
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .service-card h3 {
+    color: var(--text-color);
+    margin-bottom: 0.8rem;
+  }
+
+  .service-card p {
+    color: var(--text-color);
+    opacity: 0.8;
+    
+  }
+
+  /* Icon hover effects */
+  .service-card:hover .icon-wrapper {
+    background: var(--icon-active);
+    box-shadow: 0 0 15px rgba(0, 119, 182, 0.4); /* Deeper glow for light mode */
+  }
+
+  .service-card:hover .service-icon {
+    color: #ffffff;
+  }
+
+  /* Icon outline container (kept for spacing/alignment) */
+  .icon-outline {
+    margin-left: auto;  /* push to right */
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--card-bg); /* fallback, no gradient needed */
+    transition: var(--transition);
+    
+  }
+
+  /* Icon itself */
+  .service-icon {
+    font-size: 3rem;         /* bigger icons */
+    transition: var(--transition);
+    
+  }
+
+  /* Assign colors based on type */
+  .service-card .service-icon {
+    color: #00bcd4; /* default neon blue for layout/tool */
+  }
+
+  .service-card .service-icon.droplet {
+    color: #00e5ff; /* vibrant, deep neon for water drop */
+  }
+
+  /* Hover effect for all icons */
+  .service-card:hover .service-icon {
+    transform: scale(1.2);
+    color: #ffffff; /* optional brightening on hover */
+  }
+
+  /* Remove the icon outline background entirely */
+  .icon-outline {
+    margin-left: auto;  /* push to right */
+    width: auto;        /* no circle */
+    height: auto;
+    padding: 0;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Icon itself */
+  .service-icon {
+    font-size: 3rem;         /* bigger icons */
+    transition: var(--transition);
+    background-color: ;
+  }
+
+  /* Assign colors based on type */
+  .service-card .service-icon.droplet {
+    color: #0040FF; /* deep neon water blue */
+  }
+
+  .service-card .service-icon.tool {
+    color: #963E1B; /* mellow neon green */
+  }
+
+  .service-card .service-icon.layout {
+    color: #ff70a6; /* mellow neon pink */
+  }
+
+  /* Hover effect for all icons */
+  .service-card:hover .service-icon {
+    transform: scale(1.2);
+  }
+
+  /* theme.css */
+.theme-toggle {
+  --toggle-size: 24px;
+  --toggle-padding: 4px;
+  
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--toggle-bg, #f0f0f0);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* Dark theme */
-[data-theme="dark"] {
-  --background: #121212;
-  --text: #f5f5f5;
-  --primary: #2a9d8f;
-  --secondary: #1b3a4b;
-  --accent: #e9c46a;
-  --menu-bg: rgba(18, 18, 18, 0.95);
-  --button-text: #ffffff;
-  --card-bg: #1e1e1e;
+.toggle-track {
+  width: calc(var(--toggle-size) * 2);
+  height: var(--toggle-size);
+  background: var(--track-bg, #e0e0e0);
+  border-radius: 999px;
+  position: relative;
+  transition: all 0.3s ease;
 }
 
-/* Apply theme variables */
-body {
-  background-color: var(--background);
-  color: var(--text);
+.toggle-thumb {
+  position: absolute;
+  top: var(--toggle-padding);
+  left: var(--toggle-padding);
+  width: calc(var(--toggle-size) - var(--toggle-padding) * 2);
+  height: calc(var(--toggle-size) - var(--toggle-padding) * 2);
+  background: var(--thumb-bg, #fff);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  transform: translateX(0);
 }
 
-.hero, .card {
-  background: var(--card-bg);
+[data-theme="dark"] .theme-toggle {
+  --toggle-bg: #2d3748;
+  --track-bg: #4a5568;
+  --thumb-bg: #f7fafc;
 }
 
-.section-title {
-  color: var(--primary);
+[data-theme="dark"] .toggle-thumb {
+  transform: translateX(calc(var(--toggle-size)));
 }
 
-:root {
-  --icon-color: #a0aec0; /* Gray default */
-  --icon-bg: #f7fafc;
-  --icon-active: #2a9d8f; /* Your primary color */
-}
-
-[data-theme="dark"] {
-  --icon-color: #718096;
-  --icon-bg: #2d3748;
-}
-
-:root {
-  --card-bg: #ffffff;
-  --text-color: #2d3748;
-}
-
-[data-theme="dark"] {
-  --card-bg: #2d3748;
-  --text-color: #f7fafc;
-}
-
-.service-card h3 {
-  color: var(--text-color);
-  margin-bottom: 0.8rem;
-}
-
-.service-card p {
-  color: var(--text-color);
-  opacity: 0.8;
-}
