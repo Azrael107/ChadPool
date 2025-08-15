@@ -1,0 +1,168 @@
+/* ===== Base Variables ===== */
+:root {
+  --card-bg: #ffffff;
+  --icon-bg: #f7fafc;
+  --icon-color: #a0aec0;
+  --primary-color: #2a9d8f;
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+  --card-bg: #2d3748;
+  --icon-bg: #4a5568;
+  --icon-color: #cbd5e0;
+}
+
+/* ===== Core Grid Layout ===== */
+.services-grid {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+/* ===== Card Variants ===== */
+/* Default Card (With Icon) */
+.services-grid.default {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.service-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Minimal List Variant */
+.services-grid.minimal {
+  grid-template-columns: 1fr;
+}
+
+.service-card.minimal {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  text-align: left;
+}
+
+/* ===== Icon Styles ===== */
+.icon-wrapper {
+  width: 80px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+  background: var(--icon-bg);
+  transition: var(--transition);
+}
+
+.service-icon {
+  font-size: 2rem;
+  color: var(--icon-color);
+  transition: var(--transition);
+}
+
+/* Water Effect */
+.water-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.water-effect::after {
+  content: '';
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  transform: scale(0);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+/* ===== Interactive States ===== */
+.service-card:hover .icon-wrapper {
+  background: var(--primary-color);
+  animation: float 2s ease-in-out infinite;
+}
+
+.service-card:hover .service-icon {
+  color: white;
+  transform: scale(1.1);
+}
+
+.service-card:hover .water-effect::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ===== Animations ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 768px) {
+  .services-grid.default {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+  
+  .service-card.minimal {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* services.css */
+.service-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-radius: 12px;
+}
+
+.icon-outline {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 3px;
+  display: grid;
+  place-items: center;
+}
+
+.icon-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--card-bg);
+  display: grid;
+  place-items: center;
+  color: var(--primary-color);
+}
+
+.service-content {
+  flex: 1;
+}
+
+/* Dark mode fixes */
+[data-theme="dark"] .icon-container {
+  background: var(--card-bg);
+}
+
+[data-theme="dark"] .service-icon {
+  color: var(--primary-color);
+}
