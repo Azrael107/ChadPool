@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Carousel from './components/Carousel'; // Import the Carousel component
-import { services } from './data/services';
-import ServiceCard from './components/ServiceCard';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import Gallery from './pages/Gallery';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import './styles/main.css';
 import './styles/theme.css';
-import './styles/carousel.css'; // Make sure to import carousel styles
 
 const App = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Check time for automatic dark mode
   useEffect(() => {
     const hour = new Date().getHours();
     const autoDarkMode = hour < 6 || hour >= 18;
@@ -34,32 +35,26 @@ const App = () => {
   ];
 
   return (
-    <div className="container">
-      <Header menuItems={menuItems} isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-
-      <section className="hero">
-        <h2 className="section-title">Premium Pool Services</h2>
-        <p>Transform your backyard into a luxurious oasis with our expert pool design and maintenance services.</p>
+    <Router>
+      <div className="container">
+        {/* Header stays fixed - outside of Routes */}
+        <Header menuItems={menuItems} isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         
-        {/* Add Carousel component here */}
-        <div className="carousel-container">
-          <Carousel />
-        </div>
-      </section>
-
-      <h2 className="section-title">Our Services</h2>
-       <div className="card-grid">
-          {services.map(service => (
-            <ServiceCard 
-              key={service.id} 
-              service={service} 
-              variant="card" 
-            />
-    ))}
-  </div>
-
-      <Footer />
-    </div>
+        {/* Main content area changes with routes */}
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        
+        {/* Footer stays fixed - outside of Routes */}
+        <Footer />
+      </div>
+    </Router>
   );
 };
 

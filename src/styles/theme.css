@@ -126,7 +126,7 @@
   .service-icon {
     font-size: 3rem;         /* bigger icons */
     transition: var(--transition);
-    background-color: ;
+    background-color: aliceblue;
   }
 
   /* Assign colors based on type */
@@ -194,3 +194,56 @@
   transform: translateX(calc(var(--toggle-size)));
 }
 
+/* Add to your theme.css */
+:root {
+  --bulge-scale: 1.03;
+  --bulge-brightness-light: 1.05;
+  --bulge-brightness-dark: 1.15;
+  --bulge-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+[data-theme="dark"] {
+  --bulge-scale: 1.05;
+}
+
+/* Apply to all interactive elements */
+.service-card,
+.card,
+.nav-button,
+.theme-toggle {
+  transform-origin: center;
+  transition: var(--bulge-transition);
+  will-change: transform, filter;
+}
+
+/* Light theme bulge */
+.service-card:hover,
+.card:hover {
+  transform: scale(var(--bulge-scale));
+  filter: brightness(var(--bulge-brightness-light));
+}
+
+/* Dark theme bulge - more pronounced */
+[data-theme="dark"] .service-card:hover,
+[data-theme="dark"] .card:hover {
+  transform: scale(var(--bulge-scale));
+  filter: brightness(var(--bulge-brightness-dark)) 
+          drop-shadow(0 0 8px rgba(0, 212, 255, 0.2));
+}
+
+/* Buttons get extra emphasis */
+.nav-button:hover,
+.theme-toggle:hover {
+  transform: scale(1.08);
+}
+
+/* Icon-specific bulge */
+.service-card:hover .icon {
+  transform: scale(1.8);
+  filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.6));
+}
+
+/* Card grid items */
+.card:hover {
+  z-index: 2; /* Bring forward on hover */
+}

@@ -1,7 +1,7 @@
 // src/assets/images/pool-images.js
-import Pool1 from './Pool1.jpg'; // Direct imports
-import Pool2 from './Pool2.jpg';
-import Pool3 from './Pool3.jpg';
+import Pool1 from './Pool1.jpeg'; // Direct imports
+import Pool2 from './Pool2.jpeg';
+import Pool3 from './Pool3.jpeg';
 
 const poolImages = [
   {
